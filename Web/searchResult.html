@@ -1,0 +1,26 @@
+<div class="col-md-2 col-md-offset-2">
+    <p style="font-size: 5em; color: grey">
+        {{keyword}}
+    </p>
+</div>
+
+
+<ul class="list-group col-md-8 col-md-offset-2">
+    <li ng-repeat="item in list" class="list-group-item" ng-if="$index<10||permission" ng-click="moreInfo($index)"
+        style="cursor: pointer" onmousemove="this.style.background='lightgrey'"
+        onmouseout="this.style.background='white'">
+        <h3 class="list-group-item-heading">
+            {{item}}
+        </h3>
+        <p style="font-size: 1.2em">
+            {{abstracts[$index]}}
+        </p>
+    </li>
+    <li class="list-group-item" ng-if="!permission && list.length>=10" ng-click="showWholeList()"
+        style="cursor: pointer" onmousemove="this.style.background='#333333';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+        <h3 class="list-group-item-heading" style="text-align: center">
+            More
+        </h3>
+    </li>
+</ul>
