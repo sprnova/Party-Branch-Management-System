@@ -28,12 +28,14 @@ function authenticate($userName, $password) {
     $dp = new DataProcessor();
     if ($dp->connectMySQL()) {
         $conn = $dp->getConn();
-        $sql = "SELECT user_name, user_password FROM users WHERE user_name='".$userName."'AND user_password='".$password."'";
+        $sql = "SELECT user_name, user_password, user_type FROM users WHERE user_name='".$userName."'AND user_password='".$password."'";
         $result = $conn->query($sql);
 
         if($result->num_rows == 1) {
+            if($row = $result->fetch_assoc()) {
+                echo "login_success".$row["user_type"];
+            }
             $dp->closeConn();
-            echo "login_success";
             return true;
         } else {
             $dp->closeConn();
