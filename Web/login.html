@@ -1,0 +1,86 @@
+<style>
+    .tabStyle {
+        width: 30%;
+        margin-left: 35%;
+        margin-top: 2%
+    }
+
+    .contentStyle-login {
+        width: 30%;
+        height: 300px;
+        margin-left: 35%;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd
+    }
+
+    .contentStyle-signup {
+        width: 30%;
+        height: 400px;
+        margin-left: 35%;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd
+    }
+</style>
+
+<div style="width: 66px; height: 60px; margin: 1% auto 1% auto">
+    <img src="../Resources/nwpu.jpg" width="66px" height="60px">
+</div>
+
+<hr>
+
+<h1 style="text-align: center">Management System</h1>
+
+<ul id="myTab" class="nav nav-tabs tabStyle">
+    <li class="active" style="width: 50%">
+        <a href="#login" data-toggle="tab" style="text-align: center; font-size: 1.5em">
+            登录
+        </a>
+    </li>
+    <li style="width: 50%">
+        <a href="#register" data-toggle="tab" style="text-align: center; font-size: 1.5em">
+            注册
+        </a>
+    </li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active contentStyle-login" id="login">
+        <form data-ng-submit="loginForm()">
+            <div style="width: 90%; margin-left: 5%; padding-top: 7%">
+                <p style="font-size: 1.2em">姓名</p>
+                <input type="text" name="login_name" class="form-control" placeholder="请输入真实姓名" data-ng-model="loginData.login_name">
+            </div>
+            <div style="width: 90%; margin-left: 5%; margin-top: 7%">
+                <p style="font-size: 1.2em">密码</p>
+                <input type="password" name="login_psw" class="form-control" placeholder="请输入密码" data-ng-model="loginData.login_psw">
+            </div>
+            <button type="submit" class="btn btn-success" style="width: 40%; margin-left: 30% ;margin-top: 10%">登录</button>
+        </form>
+    </div>
+    <div class="tab-pane fade contentStyle-signup" id="register">
+        <form data-ng-submit="registerForm()">
+            <div style="width: 90%; margin-left: 5%; padding-top: 7%">
+                <p style="font-size: 1.2em">姓名</p>
+                <input type="text" name="rsg_name" class="form-control" placeholder="请输入真实姓名" data-ng-model="registerData.rsg_name">
+            </div>
+            <div style="width: 90%; margin-left: 5%; padding-top: 7%">
+                <p style="font-size: 1.2em">验证信息</p>
+                <input type="text" name="rsg_valid" class="form-control" placeholder="请输入验证信息" data-ng-model="registerData.rsg_valid">
+            </div>
+            <div style="width: 90%; margin-left: 5%; margin-top: 7%">
+                <p style="font-size: 1.2em">密码</p>
+                <input type="password" name="rsg_psw" class="form-control" placeholder="请输入密码" data-ng-model="registerData.rsg_psw">
+            </div>
+            <button type="submit" class="btn btn-success" style="width: 40%; margin-left: 30%; margin-top: 10%">提交</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $('#myTab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show')
+    })
+</script>
