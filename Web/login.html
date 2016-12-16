@@ -1,12 +1,10 @@
 <style>
     .tabStyle {
-        width: 30%;
         margin-left: 35%;
         margin-top: 4%
     }
 
     .contentStyle-login {
-        width: 30%;
         margin-left: 35%;
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
@@ -14,7 +12,6 @@
     }
 
     .contentStyle-signup {
-        width: 30%;
         margin-left: 35%;
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
@@ -30,29 +27,29 @@
 
 <h1 style="text-align: center">Management System</h1>
 
-<ul id="myTab" class="nav nav-tabs tabStyle">
+<ul id="myTab" class="nav nav-tabs tabStyle col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
     <li class="active" style="width: 50%">
         <a href="#login" data-toggle="tab" style="text-align: center; font-size: 1.5em">
-            登录
+            <i class="fa fa-sign-in" aria-hidden="true"></i> 登录
         </a>
     </li>
     <li style="width: 50%">
         <a href="#register" data-toggle="tab" style="text-align: center; font-size: 1.5em">
-            注册
+            <i class="fa fa-address-book" aria-hidden="true"></i> 注册
         </a>
     </li>
 </ul>
 
 <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade in active contentStyle-login" id="login">
+    <div class="tab-pane fade in active contentStyle-login col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4" id="login">
         <form data-ng-submit="loginForm()">
             <div style="width: 90%; margin-left: 5%; padding-top: 5%">
-                <p style="font-size: 1.2em">姓名</p>
+                <p style="font-size: 1.2em"><i class="fa fa-user" aria-hidden="true"></i> 姓名</p>
                 <input type="text" name="login_name" class="form-control" placeholder="请输入真实姓名" data-ng-model="loginData.login_name">
                 <span class="help-block" ng-if="login_need_name!='no_need'" style="color: indianred">{{login_need_name}}</span>
             </div>
             <div style="width: 90%; margin-left: 5%; margin-top: 5%">
-                <p style="font-size: 1.2em">密码</p>
+                <p style="font-size: 1.2em"><i class="fa fa-key" aria-hidden="true"></i> 密码</p>
                 <input type="password" name="login_psw" class="form-control" placeholder="请输入密码" data-ng-model="loginData.login_psw">
                 <span class="help-block" ng-if="login_need_psw!='no_need'" style="color: indianred">{{login_need_psw}}</span>
             </div>
@@ -60,20 +57,20 @@
             <div style="height: 20px"></div>
         </form>
     </div>
-    <div class="tab-pane fade contentStyle-signup" id="register">
+    <div class="tab-pane fade contentStyle-signup col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4" id="register">
         <form data-ng-submit="registerForm()">
             <div style="width: 90%; margin-left: 5%; padding-top: 5%">
-                <p style="font-size: 1.2em">姓名</p>
+                <p style="font-size: 1.2em"><i class="fa fa-user" aria-hidden="true"></i> 姓名</p>
                 <input type="text" name="rsg_name" class="form-control" placeholder="请输入真实姓名" data-ng-model="registerData.rsg_name">
                 <span class="help-block" ng-if="register_need_name!='no_need'" style="color: indianred">{{register_need_name}}</span>
             </div>
             <div style="width: 90%; margin-left: 5%; padding-top: 5%">
-                <p style="font-size: 1.2em">认证信息</p>
+                <p style="font-size: 1.2em"><i class="fa fa-commenting" aria-hidden="true"></i> 认证信息</p>
                 <input type="text" name="rsg_valid" class="form-control" placeholder="请输入认证信息" data-ng-model="registerData.rsg_valid">
                 <span class="help-block" ng-if="register_need_validate!='no_need'" style="color: indianred">{{register_need_validate}}</span>
             </div>
             <div style="width: 90%; margin-left: 5%; margin-top: 5%">
-                <p style="font-size: 1.2em">密码</p>
+                <p style="font-size: 1.2em"><i class="fa fa-key" aria-hidden="true"></i> 密码</p>
                 <input type="password" name="rsg_psw" class="form-control" placeholder="请输入密码" data-ng-model="registerData.rsg_psw">
                 <span class="help-block" ng-if="register_need_password!='no_need'" style="color: indianred">{{register_need_password}}</span>
             </div>
