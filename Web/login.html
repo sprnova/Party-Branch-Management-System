@@ -2,12 +2,11 @@
     .tabStyle {
         width: 30%;
         margin-left: 35%;
-        margin-top: 2%
+        margin-top: 4%
     }
 
     .contentStyle-login {
         width: 30%;
-        height: 300px;
         margin-left: 35%;
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
@@ -16,7 +15,6 @@
 
     .contentStyle-signup {
         width: 30%;
-        height: 400px;
         margin-left: 35%;
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
@@ -48,32 +46,39 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active contentStyle-login" id="login">
         <form data-ng-submit="loginForm()">
-            <div style="width: 90%; margin-left: 5%; padding-top: 7%">
+            <div style="width: 90%; margin-left: 5%; padding-top: 5%">
                 <p style="font-size: 1.2em">姓名</p>
                 <input type="text" name="login_name" class="form-control" placeholder="请输入真实姓名" data-ng-model="loginData.login_name">
+                <span class="help-block" ng-if="login_need_name!='no_need'" style="color: indianred">{{login_need_name}}</span>
             </div>
-            <div style="width: 90%; margin-left: 5%; margin-top: 7%">
+            <div style="width: 90%; margin-left: 5%; margin-top: 5%">
                 <p style="font-size: 1.2em">密码</p>
                 <input type="password" name="login_psw" class="form-control" placeholder="请输入密码" data-ng-model="loginData.login_psw">
+                <span class="help-block" ng-if="login_need_psw!='no_need'" style="color: indianred">{{login_need_psw}}</span>
             </div>
-            <button type="submit" class="btn btn-success" style="width: 40%; margin-left: 30% ;margin-top: 10%">登录</button>
+            <button type="submit" class="btn btn-success" style="width: 40%; margin-left: 30% ;margin-top: 5%">登录</button>
+            <div style="height: 20px"></div>
         </form>
     </div>
     <div class="tab-pane fade contentStyle-signup" id="register">
         <form data-ng-submit="registerForm()">
-            <div style="width: 90%; margin-left: 5%; padding-top: 7%">
+            <div style="width: 90%; margin-left: 5%; padding-top: 5%">
                 <p style="font-size: 1.2em">姓名</p>
                 <input type="text" name="rsg_name" class="form-control" placeholder="请输入真实姓名" data-ng-model="registerData.rsg_name">
+                <span class="help-block" ng-if="register_need_name!='no_need'" style="color: indianred">{{register_need_name}}</span>
             </div>
-            <div style="width: 90%; margin-left: 5%; padding-top: 7%">
-                <p style="font-size: 1.2em">验证信息</p>
-                <input type="text" name="rsg_valid" class="form-control" placeholder="请输入验证信息" data-ng-model="registerData.rsg_valid">
+            <div style="width: 90%; margin-left: 5%; padding-top: 5%">
+                <p style="font-size: 1.2em">认证信息</p>
+                <input type="text" name="rsg_valid" class="form-control" placeholder="请输入认证信息" data-ng-model="registerData.rsg_valid">
+                <span class="help-block" ng-if="register_need_validate!='no_need'" style="color: indianred">{{register_need_validate}}</span>
             </div>
-            <div style="width: 90%; margin-left: 5%; margin-top: 7%">
+            <div style="width: 90%; margin-left: 5%; margin-top: 5%">
                 <p style="font-size: 1.2em">密码</p>
                 <input type="password" name="rsg_psw" class="form-control" placeholder="请输入密码" data-ng-model="registerData.rsg_psw">
+                <span class="help-block" ng-if="register_need_password!='no_need'" style="color: indianred">{{register_need_password}}</span>
             </div>
-            <button type="submit" class="btn btn-success" style="width: 40%; margin-left: 30%; margin-top: 10%">提交</button>
+            <button type="submit" class="btn btn-success" style="width: 40%; margin-left: 30%; margin-top: 5%">提交</button>
+            <div style="height: 20px"></div>
         </form>
     </div>
 </div>
