@@ -1,0 +1,84 @@
+<style>
+    .pagination {
+        right: 8%;
+        position: absolute;
+        top: -30px;
+    }
+</style>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#/">党员信息管理系统</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="#home">成员概览</a></li>
+                <li><a href="#home">发展转正</a></li>
+                <li><a href="#home">党费缴纳</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#home"><i class="fa fa-bell" aria-hidden="true"></i></a></li>
+                <li style="padding-right: 30px"><a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div data-ng-model="branchName" style="font-size: 2em; margin-left: 8%">{{ branchName }}</div>
+
+<div class="btn-group" style="margin-left: 83.5%; margin-top: 1%">
+    <button type="button" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    <button type="button" class="btn btn-default"><i class="fa fa-upload" aria-hidden="true"></i></button>
+    <button type="button" class="btn btn-default"><i class="fa fa-download" aria-hidden="true"></i></button>
+</div>
+
+<table class="table table-bordered table-hover table-condensed datatable"
+       style="width: 84%; margin-left: 8%;margin-top: 0.5%; cursor:pointer">
+    <tr class="success">
+        <th style="text-align: center">序号</th>
+        <th style="text-align: center" data-ng-click="sortBy('name')">姓名</th>
+        <th style="text-align: center" data-ng-click="sortBy('class')">班级</th>
+        <th style="text-align: center" data-ng-click="sortBy('birth_date')">出生年月</th>
+        <th style="text-align: center">民族</th>
+        <th style="text-align: center">籍贯</th>
+        <th style="text-align: center">状态</th>
+        <th style="text-align: center" data-ng-click="sortBy('develop_date')">发展时间</th>
+        <th style="text-align: center" data-ng-click="sortBy('formal_date')">转正时间</th>
+        <th style="text-align: center">学生分类</th>
+        <th style="text-align: center">所学专业</th>
+        <th style="text-align: center">手机号码</th>
+        <th style="text-align: center">职务</th>
+    </tr>
+    <tr data-ng-repeat="info in items">
+        <td style="text-align: center">{{ $index + 1 }}</td>
+        <td style="text-align: center" data-ng-bind="info.name"></td>
+        <td style="text-align: center" data-ng-bind="info.class"></td>
+        <td style="text-align: center" data-ng-bind="info.birth_date"></td>
+        <td style="text-align: center" data-ng-bind="info.nation"></td>
+        <td style="text-align: center" data-ng-bind="info.place_of_origin"></td>
+        <td style="text-align: center" data-ng-bind="info.state"></td>
+        <td style="text-align: center" data-ng-bind="info.develop_date"></td>
+        <td style="text-align: center" data-ng-bind="info.formal_date"></td>
+        <td style="text-align: center" data-ng-bind="info.type"></td>
+        <td style="text-align: center" data-ng-bind="info.major"></td>
+        <td style="text-align: center" data-ng-bind="info.phone"></td>
+        <td style="text-align: center" data-ng-bind="info.post"></td>
+    </tr>
+</table>
+<nav style="position: relative;height: 50px">
+    <ul class="pagination">
+        <li style="cursor: pointer">
+            <a ng-click="Previous()">
+                <span>上一页</span>
+            </a>
+        </li>
+        <li style="cursor: pointer" ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}">
+            <a ng-click="selectPage(page)">{{ page }}</a>
+        </li>
+        <li style="cursor: pointer">
+            <a ng-click="Next()">
+                <span>下一页</span>
+            </a>
+        </li>
+    </ul>
+</nav>
