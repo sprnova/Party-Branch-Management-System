@@ -12,7 +12,7 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li><a href="#home">成员概览</a></li>
+                <li class="active"><a href="#home">成员概览</a></li>
                 <li><a href="#home">发展转正</a></li>
                 <li><a href="#home">党费缴纳</a></li>
             </ul>
@@ -27,7 +27,9 @@
 <div data-ng-model="branchName" style="font-size: 2em; margin-left: 8%">{{ branchName }}</div>
 
 <div class="btn-group" style="margin-left: 83.5%; margin-top: 1%">
-    <button type="button" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addMember">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
     <button type="button" class="btn btn-default"><i class="fa fa-upload" aria-hidden="true"></i></button>
     <button type="button" class="btn btn-default"><i class="fa fa-download" aria-hidden="true"></i></button>
 </div>
@@ -50,18 +52,37 @@
         <th style="text-align: center">职务</th>
     </tr>
     <tr data-ng-repeat="info in items">
-        <td style="text-align: center">{{ $index + 1 }}</td>
-        <td style="text-align: center" data-ng-bind="info.name"></td>
-        <td style="text-align: center" data-ng-bind="info.class"></td>
-        <td style="text-align: center" data-ng-bind="info.birth_date"></td>
-        <td style="text-align: center" data-ng-bind="info.nation"></td>
-        <td style="text-align: center" data-ng-bind="info.place_of_origin"></td>
-        <td style="text-align: center" data-ng-bind="info.state"></td>
-        <td style="text-align: center" data-ng-bind="info.develop_date"></td>
-        <td style="text-align: center" data-ng-bind="info.formal_date"></td>
-        <td style="text-align: center" data-ng-bind="info.type"></td>
-        <td style="text-align: center" data-ng-bind="info.major"></td>
-        <td style="text-align: center" data-ng-bind="info.phone"></td>
+        <td style="text-align: center" data-ng-click="tableClick($index,'delete',info.name)" data-toggle="modal"
+            data-target="#deleteRecord">{{ $index + 1 }}
+        </td>
+        <td style="text-align: center" data-ng-bind="info.name" data-ng-click="tableClick($index,'name',info.name)"
+            data-toggle="modal" data-target="#modifyText"></td>
+        <td style="text-align: center" data-ng-bind="info.class" data-ng-click="tableClick($index,'class',info.class)"
+            data-toggle="modal" data-target="#modifyText"></td>
+        <td style="text-align: center" data-ng-bind="info.birth_date"
+            data-ng-click="tableClick($index,'birth_date',info.birth_date)" data-toggle="modal"
+            data-target="#modifyText"></td>
+        <td style="text-align: center" data-ng-bind="info.nation"
+            data-ng-click="tableClick($index,'nation',info.nation)" data-toggle="modal" data-target="#modifyText"></td>
+        <td style="text-align: center" data-ng-bind="info.place_of_origin"
+            data-ng-click="tableClick($index,'place_of_origin',info.place_of_origin)" data-toggle="modal"
+            data-target="#modifyText"></td>
+        <td style="text-align: center" data-ng-bind="info.state"
+            data-ng-click="tableClick($index,'state',info.state)" data-toggle="modal"
+            data-target="#modifySelectorState"></td>
+        <td style="text-align: center" data-ng-bind="info.develop_date"
+            data-ng-click="tableClick($index,'develop_date',info.develop_date)" data-toggle="modal"
+            data-target="#modifyText"></td>
+        <td style="text-align: center" data-ng-bind="info.formal_date"
+            data-ng-click="tableClick($index,'formal_date',info.formal_date)" data-toggle="modal"
+            data-target="#modifyText"></td>
+        <td style="text-align: center" data-ng-bind="info.type" data-ng-click="tableClick($index,'type',info.type)"
+            data-toggle="modal"
+            data-target="#modifySelectorType"></td>
+        <td style="text-align: center" data-ng-bind="info.major" data-ng-click="tableClick($index,'major',info.major)"
+            data-toggle="modal" data-target="#modifyText"></td>
+        <td style="text-align: center" data-ng-bind="info.phone" data-ng-click="tableClick($index,'phone',info.phone)"
+            data-toggle="modal" data-target="#modifyText"></td>
         <td style="text-align: center" data-ng-bind="info.post"></td>
     </tr>
 </table>
@@ -82,3 +103,311 @@
         </li>
     </ul>
 </nav>
+
+<!-- 添加成员模态框 -->
+<div class="modal fade" id="addMember" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    添加支部成员
+                </h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="alert alert-success" ng-if="add_success">添加成功！</div>
+                <div class="alert alert-danger" ng-if="add_error" data-ng-model="error_msg">{{ error_msg }}</div>
+
+                <form class="form-horizontal" role="form">
+
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <i class="fa fa-user" aria-hidden="true"></i> 成员姓名
+                        </label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" style="margin-left: 0%" id="name"
+                                   placeholder="请输入真实姓名" data-ng-model="memberInfoAdd.name">
+                        </div>
+
+                        <label for="class" class="col-sm-2 control-label">
+                            <i class="fa fa-users" aria-hidden="true"></i> 所在班级
+                        </label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" style="margin-left: 0%" id="class"
+                                   placeholder="请输入班号" data-ng-model="memberInfoAdd.class">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birth" class="col-sm-2 control-label">
+                            <i class="fa fa-calendar" aria-hidden="true"></i> 出生年月
+                        </label>
+                        <div class="input-append date col-sm-4" id="birth" data-date="1997-09-01">
+                            <input class="form-control" type="text" id="bDate" data-ng-model="memberInfoAdd.birth_date">
+                        </div>
+
+                        <label for="nation" class="col-sm-2 control-label">
+                            <i class="fa fa-users" aria-hidden="true"></i> 成员民族
+                        </label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="nation" placeholder="示例：土家族"
+                                   data-ng-model="memberInfoAdd.nation">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="place" class="col-sm-2 control-label">
+                            <i class="fa fa-home" aria-hidden="true"></i> 成员籍贯
+                        </label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="place" placeholder="示例：安徽合肥"
+                                   data-ng-model="memberInfoAdd.place_of_origin">
+                        </div>
+
+                        <label for="state" class="col-sm-2 control-label">
+                            <i class="fa fa-gear" aria-hidden="true"></i> 当前状态
+                        </label>
+                        <div class="col-sm-4">
+                            <!--<input type="text" class="form-control" id="state" placeholder="正式/预备/拟吸收">-->
+                            <select class="form-control" id="state" data-ng-model="memberInfoAdd.state">
+                                <option>正式</option>
+                                <option>预备</option>
+                                <option>拟吸收</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="develop" class="col-sm-2 control-label">
+                            <i class="fa fa-calendar" aria-hidden="true"></i> 发展时间
+                        </label>
+                        <div class="input-append date col-sm-4" id="develop" data-date="2017-09-01">
+                            <input class="form-control" type="text" id="dDate" placeholder="若无请略过"
+                                   data-ng-model="memberInfoAdd.develop_date">
+                        </div>
+
+                        <label for="formal" class="col-sm-2 control-label">
+                            <i class="fa fa-calendar" aria-hidden="true"></i> 转正时间
+                        </label>
+                        <div class="input-append date col-sm-4" id="formal" data-date="2017-09-01">
+                            <input class="form-control" type="text" id="fDate" placeholder="若无请略过"
+                                   data-ng-model="memberInfoAdd.formal_date">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="st" class="col-sm-2 control-label">
+                            <i class="fa fa-graduation-cap" aria-hidden="true"></i> 学生分类
+                        </label>
+                        <div class="col-sm-4">
+                            <!--<input type="text" class="form-control" id="st" placeholder="本科/研究生">-->
+                            <select class="form-control" id="st" data-ng-model="memberInfoAdd.type">
+                                <option>本科</option>
+                                <option>研究生</option>
+                            </select>
+                        </div>
+
+                        <label for="major" class="col-sm-2 control-label">
+                            <i class="fa fa-university" aria-hidden="true"></i> 所学专业
+                        </label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="major" placeholder="示例：软件工程"
+                                   data-ng-model="memberInfoAdd.major">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">
+                            <i class="fa fa-phone" aria-hidden="true"></i> 手机号码
+                        </label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="phone" placeholder="示例：18729237889"
+                                   data-ng-model="memberInfoAdd.phone">
+                        </div>
+
+                        <label for="post" class="col-sm-2 control-label">
+                            <i class="fa fa-bullseye" aria-hidden="true"></i> 当前职务
+                        </label>
+                        <div class="col-sm-4">
+                            <!--<input type="text" class="form-control" id="post" placeholder="支部书记/组织委员/宣传委员/（不填）">-->
+                            <select class="form-control" id="post" data-ng-model="memberInfoAdd.post">
+                                <option></option>
+                                <option>支部书记</option>
+                                <option>组织委员</option>
+                                <option>宣传委员</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-ng-click="addMember()">添加成员</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 修改模态框1 -->
+<!-- 修改姓名、班级、出生日期、民族、发展转正日期、专业、电话 -->
+<div class="modal fade" id="modifyText" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-ng-model="modifyTopic">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    修改{{ modifyTopic }}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" data-ng-model="modifyTarget" value={{modifyTarget}}>
+                    </div>
+                    <div class="btn-group col-sm-4">
+                        <button type="button" class="btn btn-danger" data-ng-click="modifyTarget=''">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-ng-click="modifyTarget=modifyReverse">
+                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 修改模态框2 -->
+<!-- 修改当前状态 -->
+<div class="modal fade" id="modifySelectorState" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" style="width:500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-ng-model="modifyTopic">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    修改{{ modifyTopic }}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <select class="form-control" data-ng-model="modifyTarget">
+                            <option>正式</option>
+                            <option>预备</option>
+                            <option>拟吸收</option>
+                        </select>
+                    </div>
+                    <div class="btn-group col-sm-2">
+                        <button type="button" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 修改模态框3 -->
+<!-- 修改学生类型 -->
+<div class="modal fade" id="modifySelectorType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" style="width:500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-ng-model="modifyTopic">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    修改{{ modifyTopic }}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <select class="form-control" data-ng-model="modifyTarget">
+                            <option>本科</option>
+                            <option>研究生</option>
+                        </select>
+                    </div>
+                    <div class="btn-group col-sm-2">
+                        <button type="button" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 修改模态框4 -->
+<!-- 删除当前记录 -->
+<div class="modal fade" id="deleteRecord" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" style="width:500px" data-ng-model="modifyTarget">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-ng-model="modifyTopic">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    删除记录
+                </h4>
+            </div>
+            <div class="modal-body" style="font-size: 1.5em; text-align: center">
+                <div class="alert alert-warning">您将删除{{ modifyTarget }}的支部成员信息记录</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" data-ng-click="deleteRecord(modifyTarget)">确认删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#dDate').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        minView: "month",
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 0
+    });
+    $('#fDate').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        minView: "month",
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 0
+    });
+    $('#bDate').datetimepicker({
+        format: 'yyyymm',
+        language: 'zh-CN',
+        minView: 'year',
+        weekStart: 1,
+        todayBtn: 0,
+        autoclose: 1,
+        todayHighlight: 0,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 0
+    });
+</script>
