@@ -247,7 +247,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" data-ng-click="addMember()">添加成员</button>
+                <button type="button"
+                        data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!add_success]"
+                        data-ng-click="addMember()">添加成员
+                </button>
             </div>
         </div>
     </div>

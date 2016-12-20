@@ -17,7 +17,8 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
         .success(function (data) {
-            $scope.branchName = data;
+            $scope.branchName = data[0];
+            $scope.branchId = data[1];
         });
 
     $http({
@@ -82,34 +83,41 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
             $scope.error_msg = "请填写电话号码"
         }
         else {
-            // 在视图中添加记录
-            $scope.infoAll.push($scope.memberInfoAdd);
-            $scope.sortBy('develop_date'); $scope.sortBy('develop_date'); // 排序两次保证默认次序
-
             // 对为空的项进行'nil'标注
-            for (var i = 0; i < $scope.standard.length; i++) {
-                if ($scope.memberInfoAdd[$scope.standard[i]] == undefined) {
-                    $scope.standardText[i] = 'nil';
-                } else {
-                    $scope.standardText[i] = $scope.memberInfoAdd[$scope.standard[i]];
-                }
-            }
+            //for (var i = 0; i < $scope.standard.length; i++) {
+            //    if ($scope.memberInfoAdd[$scope.standard[i]] == undefined) {
+            //        console.log($scope.standard[i]);
+            //        $scope.standardText[i] = 'nil';
+            //    } else {
+            //        $scope.standardText[i] = $scope.memberInfoAdd[$scope.standard[i]];
+            //    }
+            //}
 
             // 发送请求,修改后台数据
             $http({
                 method  : 'GET',
                 url     : '../Logic/infoLogic.php?kind=newMember&name='+$scope.memberInfoAdd.name
                 +'&class='+$scope.memberInfoAdd.class+'&birth_date='+$scope.memberInfoAdd.birth_date
-                +'&nation='+$scope.memberInfoAdd.nation+'&place_of_origin='+$scope.standardText[0]
-                +'&state='+$scope.memberInfoAdd.state+'&develop_date='+$scope.standardText[1]
-                +'&formal_date='+$scope.standardText[2]+'&type='+$scope.memberInfoAdd.type
+                +'&nation='+$scope.memberInfoAdd.nation+'&place_of_origin='+$scope.memberInfoAdd.place_of_origin
+                +'&state='+$scope.memberInfoAdd.state+'&develop_date='+$scope.memberInfoAdd.develop_date
+                +'&formal_date='+$scope.memberInfoAdd.formal_date+'&type='+$scope.memberInfoAdd.type
                 +'&major='+$scope.memberInfoAdd.major+'&phone='+$scope.memberInfoAdd.phone
-                +'&post='+$scope.standardText[3],
+                +'&post='+$scope.memberInfoAdd.post+'&branchId='+$scope.branchId,
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).success(function(data) {
-                console.log(data);
-                $scope.add_error = false;
-                $scope.add_success = true;
+                if (data == 'add_success') {
+                    // 在视图中添加记录
+                    $scope.infoAll.push($scope.memberInfoAdd);
+                    $scope.sortBy('develop_date'); $scope.sortBy('develop_date'); // 排序两次保证默认次序
+
+                    $scope.add_error = false;
+                    $scope.add_success = true;
+                } else {
+                    switch (data) {
+                        default:
+                            console.log(data);
+                    }
+                }
             });
         }
     };
@@ -169,6 +177,9 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
             case 'type':
                 $scope.modifyTopic = '学生分类';
                 break;
+            case 'post':
+                $scope.modifyTopic = '职务';
+                break;
             default:
         }
         $scope.modifyTarget = originVal;
@@ -193,16 +204,12 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
                 $scope.modify_error = true;
                 return;
             }
-            $scope.modifyUrl = '../Logic/infoLogic.php?kind=modifyMember&fieldName='
+            $scope.modifyUrl = '../Logic/infoLogic.php?kind=modifyMember&memberName='+$scope.targetName+'&fieldName='
                 +$scope.fieldName+'&'+$scope.fieldName+'='+$scope.modifyTarget;
+            console.log($scope.modifyUrl);
         } else {
-            if ($.trim($scope.modifyTarget) == "") {
-                $scope.modifyUrl = '../Logic/infoLogic.php?kind=modifyMember&fieldName='
-                    +$scope.fieldName+'&'+$scope.fieldName+'=nil';
-            } else {
-                $scope.modifyUrl = '../Logic/infoLogic.php?kind=modifyMember&fieldName='
-                    +$scope.fieldName+'&'+$scope.fieldName+'='+$scope.modifyTarget;
-            }
+            $scope.modifyUrl = '../Logic/infoLogic.php?kind=modifyMember&memberName='+$scope.targetName+'&fieldName='
+                +$scope.fieldName+'&'+$scope.fieldName+'='+$scope.modifyTarget;
         }
 
         // 后台数据更新
@@ -212,6 +219,7 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
             headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).success(function(data) {
             if (data == 'modify_success') {
+                console.log(data);
                 // 前台数据更新 -- 必须在后台确认成功后
                 var realIndex = ($scope.currentPage-1)*12+$scope.index;            // 真正的记录序号 = 页数*每页条数+当前页中的序号
                 $scope.infoAll[realIndex][$scope.fieldName] = $scope.modifyTarget;
@@ -223,7 +231,7 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
             } else {
                 switch (data) {
                     default:
-                        console.log(data);
+                        alert(data);
                 }
             }
         });
@@ -251,7 +259,7 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
             } else {
                 switch (data) {
                     default:
-                        console.log(data);
+                        alert(data);
                 }
             }
         });
