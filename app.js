@@ -1,17 +1,17 @@
 /**
  * Created by HongYang on 2016/12/10.
  */
-var myWiki = angular.module('myWiki', ['ngRoute']);
+var app = angular.module('app', ['ngRoute']);
 
-myWiki.config(function ($routeProvider) {
+app.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: 'Web/home.html',
-            controller: 'searchCtrl'
+            templateUrl: 'Web/login.html',
+            controller: 'loginCtrl'
         })
-        .when('/home', {
-            templateUrl: 'Web/home.html',
-            controller: 'searchCtrl'
+        .when('/branch/:userName', {
+            templateUrl: 'Web/home/branch.html',
+            controller: 'branchCtrl'
         })
         .when('/result/:wd', {
             templateUrl: 'Web/searchResult.html',
@@ -23,19 +23,12 @@ myWiki.config(function ($routeProvider) {
         })
 });
 
-myWiki
-    .controller('footerCtrl', function ($scope, $window, $document) {
-    })
-    .controller('searchCtrl', function ($scope, $location) {
-
-        $scope.searchClick = function () {
-            if ($scope.searchText == undefined || $.trim($scope.searchText) == "") {
-                alert("Please input valid key words.");
-            } else {
-                $location.path('/result/' + $scope.searchText);
-            }
-        }
-
+app
+    .controller('indexCtrl', function ($scope, $window, $document, $rootScope) {
+        $scope.show = false;
+        $rootScope.$on('show', function () {
+            $scope.show = true;
+        });
     })
     .controller('resultCtrl', function ($scope, $http, $routeParams, $location, $window, $document) {
         $scope.word = $routeParams.wd;
