@@ -84,7 +84,8 @@
             data-toggle="modal" data-target="#modifyText"></td>
         <td style="text-align: center" data-ng-bind="info.phone" data-ng-click="tableClick($index,'phone',info.phone)"
             data-toggle="modal" data-target="#modifyText"></td>
-        <td style="text-align: center" data-ng-bind="info.post"></td>
+        <td style="text-align: center" data-ng-bind="info.post" data-ng-click="tableClick($index,'post',info.post)"
+            data-toggle="modal" data-target="#modifyText"></td>
     </tr>
 </table>
 <nav style="position: relative;height: 50px">
@@ -264,21 +265,21 @@
                     修改{{ targetName }}的{{ modifyTopic }}
                 </h4>
             </div>
-            <div class="alert alert-success" ng-if="modify_success">修改成功！</div>
-            <div class="alert alert-danger" ng-if="modify_error">不允许为空</div>
+            <div class="alert alert-success" data-ng-if="modify_success">修改成功！</div>
+            <div class="alert alert-danger" data-ng-if="modify_error">不允许为空</div>
             <div class="modal-body">
                 <div class="form-group">
                     <div class="col-sm-8">
                         <input type="text" class="form-control" data-ng-model="modifyTarget" value={{modifyTarget}}>
                     </div>
                     <div class="btn-group col-sm-4">
-                        <button type="button" class="btn btn-danger" data-ng-click="modifyTarget=''">
+                        <button type="button" data-ng-class="{true: 'btn btn-danger', false: 'btn btn-danger disabled'}[!modify_success]" data-ng-click="modifyTarget=''">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btn btn-default" data-ng-click="modifyTarget=modifyReverse">
+                        <button type="button" data-ng-class="{true: 'btn btn-default', false: 'btn btn-default disabled'}[!modify_success]" data-ng-click="modifyTarget=modifyReverse">
                             <i class="fa fa-refresh" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btn btn-primary" data-ng-click="modifyField()">
+                        <button type="button" data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!modify_success]" data-ng-click="modifyField()">
                             <i class="fa fa-check" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -313,9 +314,8 @@
                         </select>
                     </div>
                     <div class="btn-group col-sm-2">
-                        <button type="button" class="btn btn-primary" data-ng-click="modifyField()">
+                        <button type="button" data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!modify_success]" data-ng-click="modifyField()">
                             <i class="fa fa-check" aria-hidden="true">
-
                             </i>
                         </button>
                     </div>
@@ -349,7 +349,7 @@
                         </select>
                     </div>
                     <div class="btn-group col-sm-2">
-                        <button type="button" class="btn btn-primary" data-ng-click="modifyField()">
+                        <button type="button" data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!modify_success]" data-ng-click="modifyField()">
                             <i class="fa fa-check" aria-hidden="true"></i>
                         </button>
                     </div>
