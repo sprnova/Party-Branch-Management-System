@@ -1,39 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myWiki">
+<html ng-app="app">
 <head>
     <meta charset="UTF-8">
     <title>Test</title>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <!-- 引入的样式表 -->
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="Fonts/Bootstrap/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="Fonts/global-css/global.css">
+
+    <!-- 引入的js文件 -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="Fonts/Bootstrap/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="Fonts/Bootstrap/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="libs/angular-1.5.5/angular.min.js"></script>
     <script src="libs/angular-1.5.5/angular-route.min.js"></script>
+
+    <!-- 路由文件 -->
     <script src="app.js"></script>
+
+    <!-- 项目包含的其他js文件 -->
+    <script src="Controllers/loginController.js"></script>
+    <script src="Controllers/branchController.js"></script>
+
 </head>
 <body>
-
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#/">My-Wiki</a>
-        </div>
-        <div>
-            <ul class="nav navbar-nav">
-                <li><a href="#home">Search</a></li>
-                <li><a href="#">SVN</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
 <div id="main">
     <div ng-view></div>
 </div>
-
-<!--<footer id="copyright" class="navbar-fixed-bottom col-md-2 col-md-offset-5" ng-controller="footerCtrl">-->
-    <!--<p>&copy; Copyright 2016 YangHONG</p>-->
-<!--</footer>-->
 
 </body>
 </html>
