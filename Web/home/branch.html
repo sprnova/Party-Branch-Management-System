@@ -85,7 +85,7 @@
         <td style="text-align: center" data-ng-bind="info.phone" data-ng-click="tableClick($index,'phone',info.phone)"
             data-toggle="modal" data-target="#modifyText"></td>
         <td style="text-align: center" data-ng-bind="info.post" data-ng-click="tableClick($index,'post',info.post)"
-            data-toggle="modal" data-target="#modifyText"></td>
+            data-toggle="modal" data-target="#modifySelectorPost"></td>
     </tr>
 </table>
 <nav style="position: relative;height: 50px">
@@ -273,13 +273,19 @@
                         <input type="text" class="form-control" data-ng-model="modifyTarget" value={{modifyTarget}}>
                     </div>
                     <div class="btn-group col-sm-4">
-                        <button type="button" data-ng-class="{true: 'btn btn-danger', false: 'btn btn-danger disabled'}[!modify_success]" data-ng-click="modifyTarget=''">
+                        <button type="button"
+                                data-ng-class="{true: 'btn btn-danger', false: 'btn btn-danger disabled'}[!modify_success]"
+                                data-ng-click="modifyTarget=''">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
-                        <button type="button" data-ng-class="{true: 'btn btn-default', false: 'btn btn-default disabled'}[!modify_success]" data-ng-click="modifyTarget=modifyReverse">
+                        <button type="button"
+                                data-ng-class="{true: 'btn btn-default', false: 'btn btn-default disabled'}[!modify_success]"
+                                data-ng-click="modifyTarget=modifyReverse">
                             <i class="fa fa-refresh" aria-hidden="true"></i>
                         </button>
-                        <button type="button" data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!modify_success]" data-ng-click="modifyField()">
+                        <button type="button"
+                                data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!modify_success]"
+                                data-ng-click="modifyField()">
                             <i class="fa fa-check" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -314,7 +320,9 @@
                         </select>
                     </div>
                     <div class="btn-group col-sm-2">
-                        <button type="button" data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!modify_success]" data-ng-click="modifyField()">
+                        <button type="button"
+                                data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!modify_success]"
+                                data-ng-click="modifyField()">
                             <i class="fa fa-check" aria-hidden="true">
                             </i>
                         </button>
@@ -349,7 +357,47 @@
                         </select>
                     </div>
                     <div class="btn-group col-sm-2">
-                        <button type="button" data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!modify_success]" data-ng-click="modifyField()">
+                        <button type="button"
+                                data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!modify_success]"
+                                data-ng-click="modifyField()">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 修改模态框4 -->
+<!-- 修改党内职务 -->
+<div class="modal fade" id="modifySelectorPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" style="width:500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-ng-model="modifyTopic">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    修改{{ targetName }}的{{ modifyTopic }}
+                </h4>
+            </div>
+            <div class="alert alert-success" ng-if="modify_success">修改成功！</div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <select class="form-control" data-ng-model="modifyTarget">
+                            <option></option>
+                            <option>支部书记</option>
+                            <option>组织委员</option>
+                            <option>宣传委员</option>
+                        </select>
+                    </div>
+                    <div class="btn-group col-sm-2">
+                        <button type="button"
+                                data-ng-class="{true: 'btn btn-primary', false: 'btn btn-primary disabled'}[!modify_success]"
+                                data-ng-click="modifyField()">
                             <i class="fa fa-check" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -379,7 +427,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default " data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" data-ng-if="hasSthToDelete" data-ng-click="deleteRecord(modifyTarget)">确认删除</button>
+                <button type="button" class="btn btn-primary" data-ng-if="hasSthToDelete"
+                        data-ng-click="deleteRecord(modifyTarget)">确认删除
+                </button>
             </div>
         </div>
     </div>
