@@ -13,6 +13,14 @@ app.config(function ($routeProvider) {
             templateUrl: 'Web/home/branch.html',
             controller: 'branchCtrl'
         })
+        .when('/develop/:userName', {
+            templateUrl: 'Web/home/develop.html',
+            controller: 'developCtrl'
+        })
+        .when('/dues/:userName', {
+            templateUrl: 'Web/home/dues.html',
+            controller: 'duesCtrl'
+        })
         .when('/result/:wd', {
             templateUrl: 'Web/searchResult.html',
             controller: 'resultCtrl'
