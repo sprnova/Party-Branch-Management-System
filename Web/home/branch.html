@@ -9,13 +9,13 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#/">党员信息管理系统</a>
+            <a class="navbar-brand" data-ng-href={{path_branch}}>党员信息管理系统</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#home">成员概览</a></li>
-                <li><a href="#home">发展转正</a></li>
-                <li><a href="#home">党费缴纳</a></li>
+                <li class="active"><a data-ng-href={{path_branch}}>成员概览</a></li>
+                <li><a data-ng-href={{path_develop}}>发展转正</a></li>
+                <li><a data-ng-href={{path_dues}}>党费缴纳</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#home"><i class="fa fa-bell" aria-hidden="true"></i></a></li>

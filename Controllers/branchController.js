@@ -4,7 +4,9 @@
 app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $filter) {
     $scope.user = $routeParams.userName;
 
-    $scope.path = "#dashBoardOne/" + $routeParams.userName;
+    $scope.path_branch = "#branch/" + $routeParams.userName;
+    $scope.path_develop = "#develop/" + $routeParams.userName;
+    $scope.path_dues = "#dues/" + $routeParams.userName;
 
     /**************************************************************************************
      **************************************************************************************
