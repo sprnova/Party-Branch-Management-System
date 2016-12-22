@@ -49,6 +49,12 @@ function getMemberCount($name) {
     return $count;
 }
 
+/**党费核查
+ * @param $name
+ * @param $startDate
+ * @param $finishDate
+ * @return string
+ */
 function checkDues($name,$startDate,$finishDate) {
     $rst=Array();
     $i = 0;

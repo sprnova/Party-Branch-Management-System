@@ -1,3 +1,17 @@
+<style>
+    .panelStyle {
+        width: 84%;
+        margin-left: 8%;
+        margin-top: 5%;
+    }
+
+    .panelStyle2 {
+        width: 84%;
+        margin-left: 8%;
+        margin-top: 0.5%;
+    }
+</style>
+
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -10,9 +24,29 @@
                 <li><a data-ng-href={{path_dues}}>党费缴纳</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#home"><i class="fa fa-bell" aria-hidden="true"></i></a></li>
+                <li><a href="#home"><i class="fa fa-bell" aria-hidden="true"></i><span class="badge">2</span></a></li>
                 <li style="padding-right: 30px"><a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a></li>
             </ul>
         </div>
     </div>
 </nav>
+
+<div class="panel panel-primary panelStyle">
+    <div class="panel-heading">
+        <h2 class="panel-title">党员转正动态</h2>
+    </div>
+    <table class="table table-condensed">
+        <th style="text-align: center">序号</th>
+        <th style="text-align: center">姓名</th>
+        <th style="text-align: center">预定转正日</th>
+        <th style="text-align: center">剩余天数</th>
+        <tr data-ng-repeat="formalItem in formalItems">
+            <td style="text-align: center">{{ $index+1 }}</td>
+            <td style="text-align: center">{{ formalItem.member_name }}</td>
+            <td style="text-align: center">{{ formalItem.formal_date }}</td>
+            <td style="text-align: center">{{ formalItem.days_remain }}</td>
+        </tr>
+    </table>
+</div>
+
+<a href="/Logic/Extract-Import_Excel/testFile.php" class="btn btn-primary btn-lg" role="button">原始链接</a>

@@ -102,6 +102,8 @@ function getInfo($user)
 
 /**添加一条记录
  * @param $newMember 待添加的对象
+ * @param $branchId 支部id
+ * @return str
  */
 function addMember($newMember,$branchId)
 {
