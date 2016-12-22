@@ -1,3 +1,17 @@
+<style>
+    .panelStyle {
+        width: 84%;
+        margin-left: 8%;
+        margin-top: 5%;
+    }
+
+    .panelStyle2 {
+        width: 84%;
+        margin-left: 8%;
+        margin-top: 0.5%;
+    }
+</style>
+
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -16,3 +30,123 @@
         </div>
     </div>
 </nav>
+
+<div class="panel panel-primary panelStyle">
+    <div class="panel-heading">
+        <h2 class="panel-title">本月应缴党费情况</h2>
+    </div>
+    <table class="table">
+        <th style="text-align: center">支部人数</th>
+        <th style="text-align: center">每人每月应缴金额</th>
+        <th style="text-align: center">当月总计</th>
+        <tr>
+            <td style="text-align: center">{{ memberCount }}人</td>
+            <td style="text-align: center">0.2元</td>
+            <td style="text-align: center">{{ memberCount*0.2 }}元</td>
+        </tr>
+    </table>
+</div>
+
+<div class="btn-group" style="margin-left: 86%; margin-top: 5%" id="group">
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addTime">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="btn btn-default"><i class="fa fa-download" aria-hidden="true"></i></button>
+</div>
+
+<div class="panel panel-primary panelStyle2">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            应缴党费核查表：
+            {{startDate==undefined?' * ':startDate.substring(0,4)}}年{{startDate==undefined?' *
+            ':startDate.substring(5,7)}}月
+            —
+            {{finishDate==undefined?' * ':finishDate.substring(0,4)}}年{{finishDate==undefined?' *
+            ':finishDate.substring(5,7)}}月
+        </h2>
+    </div>
+
+    <table class="table table-condensed">
+        <th style="text-align: center">序号</th>
+        <th style="text-align: center">党员姓名</th>
+        <th style="text-align: center">入党日期</th>
+        <th style="text-align: center">应缴纳党费/元</th>
+        <tr data-ng-repeat="dueItem in dueItems">
+            <td style="text-align: center">{{ $index+1 }}</td>
+            <td style="text-align: center">{{ dueItem.member_name }}</td>
+            <td style="text-align: center">{{ dueItem.develop_date }}</td>
+            <td style="text-align: center">{{ dueItem.due }}</td>
+        </tr>
+        <tr style="font-weight: bold">
+            <td style="text-align: center">总计/元</td>
+            <td style="text-align: center"> /</td>
+            <td style="text-align: center"> /</td>
+            <td style="text-align: center">{{ total }}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="modal fade" id="addTime" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:650px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-ng-model="modifyTopic">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    设置时间
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-top: 2%">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar" aria-hidden="true"></i> 起始时间
+                        </span>
+                        <input type="text" id="start" class="form-control input-append date" placeholder="点击选择起始时间"
+                               data-ng-model="startDate">
+
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar" aria-hidden="true"></i> 结束时间
+                        </span>
+                        <input type="text" id="finish" class="form-control input-append date" placeholder="点击选择结束时间"
+                               data-ng-model="finishDate">
+
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" data-ng-click="checkDues()"
+                                    data-dismiss="modal">开始查询
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#start').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        minView: 'month',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 0
+    });
+    $('#finish').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        minView: 'month',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 0
+    });
+</script>
