@@ -30,10 +30,12 @@ switch ($_GET['kind']) {
         $major = $_GET['major'];
         $phone = $_GET['phone'];
         $post = $_GET['post'] == 'undefined' ? "NULL" : "'".$_GET['post']."'";
-        $branch_id = $_GET['branchId'];
+        $gender = $_GET['gender'];
+        $card = "'".$_GET['card']."'";
+        $branch_id = "'".$_GET['branchId']."'";
 
         $newMember = new BranchMember($name, $class, $birth_date, $nation, $place_of_origin,
-            $state, $develop_date, $formal_date, $type, $major, $phone, $post);
+            $state, $develop_date, $formal_date, $type, $major, $phone, $post, $gender, $card);
 
         echo addMember($newMember,$branch_id);
         break;
@@ -83,14 +85,14 @@ function getInfo($user)
     $dp = new DataProcessor();
     if ($dp->connectMySQL()) {
         $conn = $dp->getConn();
-        $sql_getInfo = "SELECT m.member_name, i.class, i.birth_date, i.nation, i.place_of_origin, i.state, i.develop_date, i.formal_date, i.type, i.major, i.phone, i.post
+        $sql_getInfo = "SELECT m.member_name, i.class, i.birth_date, i.nation, i.place_of_origin, i.state, i.develop_date, i.formal_date, i.type, i.major, i.phone, i.post, i.gender, i.card
                         FROM branch_member m, branch_member_info i
                         WHERE m.member_id = i.member_id
 		                    AND m.branch_id = (SELECT branch_id FROM branch_member WHERE member_name = '" . $user . "');";
         $result = $conn->query($sql_getInfo);
         while ($row = $result->fetch_assoc()) {
             $rst[$i] = new BranchMember($row["member_name"], $row["class"], $row["birth_date"], $row["nation"], $row["place_of_origin"], $row["state"],
-                $row["develop_date"], $row["formal_date"], $row["type"], $row["major"], $row["phone"], $row["post"]);
+                $row["develop_date"], $row["formal_date"], $row["type"], $row["major"], $row["phone"], $row["post"], $row["gender"], $row["card"]);
             $i++;
         }
         $dp->closeConn();
@@ -112,18 +114,18 @@ function addMember($newMember,$branchId)
     $dp = new DataProcessor();
     if ($dp->connectMySQL()) {
         $conn = $dp->getConn();
-        $sql_add_primary = "INSERT INTO branch_member (member_id, member_name, branch_id) VALUES (0,"."'".$newMember->name."'".","."'".$branchId."')";
-        $sql_get_id = "SELECT member_id FROM branch_member WHERE member_name='".$newMember->name."' AND branch_id='".$branchId."'";
+        $sql_add_primary = "INSERT INTO branch_member (member_id, member_name, branch_id) VALUES (0,"."'".$newMember->name."'".",".$branchId.")";
+        $sql_get_id = "SELECT member_id FROM branch_member WHERE member_name='".$newMember->name."' AND branch_id=".$branchId;
 
         try {
             $conn->query($sql_add_primary);
             $result = $conn->query($sql_get_id);
             if ($row = $result->fetch_assoc()) {
                 $member_id = $row['member_id'];
-                $sql_add_foreign = "INSERT INTO branch_member_info (member_id,class,birth_date,nation,place_of_origin,state,type,develop_date,formal_date,major,phone,post)VALUES ("
+                $sql_add_foreign = "INSERT INTO branch_member_info (member_id,class,birth_date,nation,place_of_origin,state,type,develop_date,formal_date,major,phone,post,gender,card)VALUES ("
                     .$member_id.",'".$newMember->class."',".$newMember->birth_date.",'".$newMember->nation
                     ."','".$newMember->place_of_origin."','".$newMember->state."','".$newMember->type."',".$newMember->develop_date
-                    .",".$newMember->formal_date.",'".$newMember->major."','".$newMember->phone."',".$newMember->post.")";
+                    .",".$newMember->formal_date.",'".$newMember->major."','".$newMember->phone."',".$newMember->post.",".$newMember->gender.",".$newMember->card.")";
                 $conn->query($sql_add_foreign);
             } else {
                 return "Fatal_fail";
