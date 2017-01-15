@@ -20,9 +20,12 @@ class BranchMember
     public $major = "";
     public $phone = "";
     public $post = "";
+    public $gender = "";
+    public $card = "";
 
     function __construct( $par1, $par2, $par3, $par4, $par5, $par6,
-                          $par7, $par8, $par9, $parA, $parB, $parC ) {
+                          $par7, $par8, $par9, $parA, $parB, $parC,
+                          $parD, $parE) {
         $this->name = $par1;
         $this->class = $par2;
         $this->birth_date = $par3;
@@ -35,5 +38,7 @@ class BranchMember
         $this->major = $parA;
         $this->phone = $parB;
         $this->post = $parC;
+        $this->gender = $parD;
+        $this->card = $parE;
     }
 }
