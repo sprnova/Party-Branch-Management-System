@@ -8,6 +8,8 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
     $scope.path_develop = "#develop/" + $routeParams.userName;
     $scope.path_dues = "#dues/" + $routeParams.userName;
 
+    $scope.path_extract = '../../Logic/Extract-Import_Excel/infoExtract.php?name=' + $routeParams.userName;
+
     /**************************************************************************************
      **************************************************************************************
      *                                    初始数据获取                                     *
@@ -28,6 +30,7 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
         url: '../Logic/infoLogic.php?kind=general' + '&name=' + $scope.user,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).success(function (data) {
+        console.log(data);
         $scope.infoAll = data;
         $scope.sortBy('develop_date');// 默认按入党时间排序
     });
@@ -54,35 +57,43 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
         // 判断是否有未填的必填项
         if ($scope.memberInfoAdd['name'] == undefined) {
             $scope.add_error = true;
-            $scope.error_msg = "请填写姓名"
+            $scope.error_msg = "请填写姓名";
         }
         else if ($scope.memberInfoAdd['class'] == undefined) {
             $scope.add_error = true;
-            $scope.error_msg = "请填写班级"
+            $scope.error_msg = "请填写班级";
         }
         else if ($scope.memberInfoAdd['nation'] == undefined) {
             $scope.add_error = true;
-            $scope.error_msg = "请填写民族"
+            $scope.error_msg = "请填写民族";
         }
         else if ($scope.memberInfoAdd['place_of_origin'] == undefined) {
             $scope.add_error = true;
-            $scope.error_msg = "请填写籍贯"
+            $scope.error_msg = "请填写籍贯";
         }
         else if ($scope.memberInfoAdd['state'] == undefined) {
             $scope.add_error = true;
-            $scope.error_msg = "请填写当前状态"
+            $scope.error_msg = "请填写当前状态";
         }
         else if ($scope.memberInfoAdd['type'] == undefined) {
             $scope.add_error = true;
-            $scope.error_msg = "请填写学生类型"
+            $scope.error_msg = "请填写学生类型";
         }
         else if ($scope.memberInfoAdd['major'] == undefined) {
             $scope.add_error = true;
-            $scope.error_msg = "请填写专业"
+            $scope.error_msg = "请填写专业";
         }
         else if ($scope.memberInfoAdd['phone'] == undefined) {
             $scope.add_error = true;
-            $scope.error_msg = "请填写电话号码"
+            $scope.error_msg = "请填写电话号码";
+        }
+        else if ($scope.memberInfoAdd['gender'] == undefined) {
+            $scope.add_error = true;
+            $scope.error_msg = "请填写成员性别";
+        }
+        else if ($scope.memberInfoAdd['card'] == undefined) {
+            $scope.add_error = true;
+            $scope.error_msg = "请填写身份证号";
         }
         else {
             // 对为空的项进行'nil'标注
@@ -104,7 +115,8 @@ app.controller('branchCtrl', function ($routeParams, $scope, $location, $http, $
                 +'&state='+$scope.memberInfoAdd.state+'&develop_date='+$scope.memberInfoAdd.develop_date
                 +'&formal_date='+$scope.memberInfoAdd.formal_date+'&type='+$scope.memberInfoAdd.type
                 +'&major='+$scope.memberInfoAdd.major+'&phone='+$scope.memberInfoAdd.phone
-                +'&post='+$scope.memberInfoAdd.post+'&branchId='+$scope.branchId,
+                +'&post='+$scope.memberInfoAdd.post+'&branchId='+$scope.branchId
+                +'&gender='+$scope.memberInfoAdd.gender+'&card='+$scope.card,
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).success(function(data) {
                 if (data == 'add_success') {
